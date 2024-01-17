@@ -1,0 +1,31 @@
+.search {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.search-city {
+    background: #fff;
+    color: #555;
+    border: none;
+    display: block;
+    font-size: 1rem;
+    height: 34px;
+    line-height: 1.5;
+    width: 100%;
+    margin-left: auto;
+}
+
+.search-btn {
+    display: inline;
+    background-color: #005e95;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    padding-inline: 2rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    margin-right: auto;
+}
