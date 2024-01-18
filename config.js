@@ -1,6 +1,6 @@
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 module.exports = {
-    PORT: process.env.PORT,
-    API_KEY: process.env.API_KEY
-}
+  PORT: 8081,
+  API_KEY: process.env.API_KEY,
+};
