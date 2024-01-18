@@ -25,7 +25,7 @@ const router = async () => {
     { path: "/fivedays", view: FiveDays },
   ];
   //match
-  const potencialMatches = routes.map((route) => {
+  const potentialMatches = routes.map((route) => {
     return {
       route: route,
       result: location.pathname.match(pathToRegex(route.path)),
