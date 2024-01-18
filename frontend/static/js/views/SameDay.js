@@ -8,7 +8,8 @@ export default class extends AbstractView {
 
   // Retourne la barre de recherche dans la page pour faire la recherche de la météo pour une ville spécifique
   getSearch() {
-    return `<div class="search">
+    return `
+                <div class="search">
                     <input type="text" name="search-city" class="search-city" id="search-city" placeholder="Enter city name">
                     <button id="search-btn" class="search-btn">Submit</button>
                 </div>
