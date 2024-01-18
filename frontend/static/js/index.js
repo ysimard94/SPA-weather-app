@@ -31,8 +31,8 @@ const router = async () => {
       result: location.pathname.match(pathToRegex(route.path)),
     };
   });
-  let match = potencialMatches.find(
-    (potencialMatch) => potencialMatch.result != null
+  let match = potentialMatches.find(
+    (potentialMatch) => potentialMatch.result != null
   );
 
   if (!match) {
