@@ -22,14 +22,13 @@ export default class extends AbstractView {
   // Retourne une liste de cartes avec les informations météo pour la ville recherchée pour les 5 prochains jours par interval de 3 heures
   async getWeather(city) {
     try {
-      console.log("test");
       const response = await fetch(
         `/forecast?city=${encodeURIComponent(city)}`
       );
 
       const data = await response.json();
 
-      console.log("Returned data", data);
+      console.log("Returned data : ", data);
 
       const toRender = this.createHtmlString(data);
 

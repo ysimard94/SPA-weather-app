@@ -15,12 +15,27 @@ app.get("/forecast", async (req, res) => {
   const city = req.query.city;
 
   if (!city) {
-    return res.status(400).json({ error: "City parameter is missing" });
+    return res
+      .status(400)
+      .json({ error: "City parameter is missing", status: "400" });
   }
 
   const data = await getDataFromWeather("forecast", city);
 
-  console.log(data);
+  return res.json(data);
+});
+
+app.get("/weather", async (req, res) => {
+  const city = req.query.city;
+
+  if (!city) {
+    return res
+      .status(400)
+      .json({ error: "City parameter is missing", status: "400" });
+  }
+
+  const data = await getDataFromWeather("weather", city);
+
   return res.json(data);
 });
 

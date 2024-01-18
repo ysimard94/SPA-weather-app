@@ -20,48 +20,53 @@ export default class extends AbstractView {
 
   // Retourne une liste de cartes avec l'information de la météo d'aujourd'hui pour la ville recherchée
   async getWeather(city) {
-    async function getData(url) {
-      const response = await fetch(url);
-      return response.json();
+    try {
+      const response = await fetch(`/weather?city=${encodeURIComponent(city)}`);
+
+      const data = await response.json();
+
+      console.log("Returned data :", data);
+
+      const toRender = this.createHtmlString(data);
+
+      return toRender;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return null;
     }
+  }
 
-    const data = await getData(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=38b38e8094299fed3051e1620bb00991&units=metric`
-    );
-    // Si la valeur rentrée par l'utilisateur existe et si la valeur n'était pas vide,
-    // on retourne une chaine HTML avec les informations météo
-    ttps: if (data["cod"] != 404 && data["cod"] != 400) {
-      console.log(data);
-
+  createHtmlString(data) {
+    if (data["cod"] != 404 && data["cod"] != 400) {
       data["weather"][0]["description"] =
         data["weather"][0]["description"][0].toUpperCase() +
         data["weather"][0]["description"].slice(1);
       return `
-                <div class="card">
-                    <span class="location">${data["name"]}</span>
-                    <div class="details">
-                        <span class="temperature">${data["main"]["temp"]}°C <img class="weather-icon" src="http://openweathermap.org/img/wn/${data["weather"][0]["icon"]}.png"></span>
-                        <span class="description">${data["weather"][0]["description"]}</span>
-                        <span class="feels-like">Feels like: ${data["main"]["feels_like"]}°C</span>
-                        <div class="weather-details">
-                            <div class="details-left">
-                                <span>Min:<br>${data["main"]["temp_min"]}°C</span>
-                                <span class="humidity">Humidity:<br>${data["main"]["humidity"]}%</span>
-                            </div>
-                            <div class="details-right">
-                                <span>Max:<br>${data["main"]["temp_max"]}°C</span>
-                                <span class="wind">Wind:<br>${data["wind"]["speed"]}km/h</span>
-                                <span
-                            </div>
+            <div class="card">
+                <span class="location">${data["name"]}</span>
+                <div class="details">
+                    <span class="temperature">${data["main"]["temp"]}°C <img class="weather-icon" src="http://openweathermap.org/img/wn/${data["weather"][0]["icon"]}.png"></span>
+                    <span class="description">${data["weather"][0]["description"]}</span>
+                    <span class="feels-like">Feels like: ${data["main"]["feels_like"]}°C</span>
+                    <div class="weather-details">
+                        <div class="details-left">
+                            <span>Min:<br>${data["main"]["temp_min"]}°C</span>
+                            <span class="humidity">Humidity:<br>${data["main"]["humidity"]}%</span>
+                        </div>
+                        <div class="details-right">
+                            <span>Max:<br>${data["main"]["temp_max"]}°C</span>
+                            <span class="wind">Wind:<br>${data["wind"]["speed"]}km/h</span>
+                            <span
                         </div>
                     </div>
                 </div>
-                `;
+            </div>
+            `;
       // Sinon, on retourne une chaine HTML avec un message d'erreur
     } else {
       return `
-                        <p style="color:white;">Please enter a valid city name</p>
-                    `;
+                    <p style="color:white;">Please enter a valid city name</p>
+                `;
     }
   }
 }
