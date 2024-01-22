@@ -1,31 +1,30 @@
 .search {
     display: flex;
+    position: relative;
+    justify-content: center;
     flex-direction: row;
-    width: 100%;
+    margin-inline: auto;
 }
 
-.search-city {
-    background: #fff;
-    color: #555;
-    border: none;
-    display: block;
-    font-size: 1rem;
-    height: 34px;
-    line-height: 1.5;
+.search > input {
+    padding: 16px 8px;
+    height: 32px;
+    max-width: 850px;
     width: 100%;
-    margin-left: auto;
+    border: none;
+    border-radius: 50px;
+    background: hsl(0 0% 100%);
+    color: hsl(0 0% 50%);
+    font-size: 1rem;
 }
 
 .search-btn {
-    display: inline;
-    background-color: #005e95;
+    position: absolute;
+    right: 0;
+    margin: 4px;
+    border-radius: 50px;
     border: none;
-    border-radius: 0 5px 5px 0;
-    padding-inline: 2rem;
-    color: #fff;
     cursor: pointer;
+    background-color: inherit;
     font-size: 1rem;
-    line-height: 1.5;
-    text-align: center;
-    margin-right: auto;
 }

@@ -1,60 +1,52 @@
-const express = require("express");
-const path = require("path");
-require("dotenv").config();
+const express = require('express');
+const path = require('path');
+require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8081;
 
 console.log(process.env.API_KEY);
 
 app.use(
-  "/static",
-  express.static(path.resolve(__dirname, "frontend", "static"))
+    '/static',
+    express.static(path.resolve(__dirname, 'frontend', 'static'))
 );
 
-app.get("/forecast", async (req, res) => {
-  const city = req.query.city;
+app.get('/:city', async (req, res) => {
+    const city = req.params.city;
 
-  if (!city) {
-    return res
-      .status(400)
-      .json({ error: "City parameter is missing", status: "400" });
-  }
+    console.log(city);
 
-  const data = await getDataFromWeather("forecast", city);
+    if (!city) {
+        return res
+            .status(400)
+            .json({ error: 'City parameter is missing', status: '400' });
+    }
 
-  return res.json(data);
+    const currentDayData = await getDataFromWeather('weather', city);
+    const forecastData = await getDataFromWeather('forecast', city);
+
+    console.log('Current weather data: ', currentDayData);
+    console.log('Forecast data: ', forecastData);
+
+    return res.json({ currentDayData, forecastData });
 });
 
-app.get("/weather", async (req, res) => {
-  const city = req.query.city;
-
-  if (!city) {
-    return res
-      .status(400)
-      .json({ error: "City parameter is missing", status: "400" });
-  }
-
-  const data = await getDataFromWeather("weather", city);
-
-  return res.json(data);
-});
-
-app.get("/*", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
+app.get('/*', function (req, res) {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
 });
 
 async function getDataFromWeather(type, city) {
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/${type}?q=${city}&appid=${process.env.API_KEY}&units=metric`
-  );
+    const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/${type}?q=${city}&appid=${process.env.API_KEY}&units=metric`
+    );
 
-  const data = await response.json();
+    const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
-  }
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-  return data;
+    return data;
 }
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
