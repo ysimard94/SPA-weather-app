@@ -52,6 +52,7 @@ export default class extends AbstractView {
                 data.currentDayData.weather[0].description[0].toUpperCase() +
                 data.currentDayData.weather[0].description.slice(1);
             htmlString = `
+            <h2>Current weather</h2>
             <div class="card-current-weather fade-in">
                 <div class="location-container">
                   <span class="location">${data.currentDayData.name}, ${data.currentDayData.sys.country}</span>
@@ -77,7 +78,8 @@ export default class extends AbstractView {
             </div>
             `;
 
-            htmlString += '<div class="forecast-container">';
+            htmlString += `<h2>Forecast over the next 5 days</h2>
+            <div class="forecast-container">`;
 
             for (let i in data.forecastData['list']) {
                 let day = data.forecastData['list'][i];
