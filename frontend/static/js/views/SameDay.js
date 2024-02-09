@@ -69,22 +69,22 @@ export default class extends AbstractView {
                     <span class="description">${
                         data.currentDayData.weather[0].description
                     }</span>
-                    <span class="feels-like">Feels like: ${
+                    <span class="feels-like">Feels like: ${Math.round(
                         data.currentDayData.main.feels_like
-                    }°C</span>
+                    )}°C</span>
                     <div class="weather-details">
                         <div class="details-left">
-                            <span>Min:<br>${
+                            <span>Min:<br>${Math.round(
                                 data.currentDayData.main.temp_min
-                            }°C</span>
+                            )}°C</span>
                             <span class="humidity">Humidity:<br>${
                                 data.currentDayData.main.humidity
                             }%</span>
                         </div>
                         <div class="details-right">
-                            <span>Max:<br>${
+                            <span>Max:<br>${Math.round(
                                 data.currentDayData.main.temp_max
-                            }°C</span>
+                            )}°C</span>
                             <span class="wind">Wind:<br>${
                                 data.currentDayData.wind.speed
                             }km/h</span>
@@ -118,22 +118,22 @@ export default class extends AbstractView {
                                         <span class="description">${
                                             day.weather[0].description
                                         }</span>
-                                        <span class="feels-like">Feels like: ${
+                                        <span class="feels-like">Feels like: ${Math.round(
                                             day.main.feels_like
-                                        }°C</span>
+                                        )}°C</span>
                                         <div class="weather-details">
                                             <div class="details-left">
-                                                <span>Min:<br>${
+                                                <span>Min:<br>${Math.round(
                                                     day.main.temp_min
-                                                }°C</span>
+                                                )}°C</span>
                                                 <span class="humidity">Humidity:<br>${
                                                     day.main.humidity
                                                 }%</span>
                                             </div>
                                             <div class="details-right">
-                                                <span>Max:<br>${
+                                                <span>Max:<br>${Math.round(
                                                     day.main.temp_max
-                                                }°C</span>
+                                                )}°C</span>
                                                 <span class="wind">Wind:<br>${
                                                     day.wind.speed
                                                 }km/h</span>
