@@ -6,10 +6,9 @@ const port = process.env.PORT || 8081;
 
 console.log(process.env.API_KEY);
 
-app.use(
-    '/static',
-    express.static(path.resolve(__dirname, 'frontend', 'static'))
-);
+app.get('/', function (req, res) {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
+});
 
 app.get('/:city', async (req, res) => {
     const city = req.params.city;
@@ -31,16 +30,22 @@ app.get('/:city', async (req, res) => {
     return res.json({ currentDayData, forecastData });
 });
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'index.html'));
-});
+app.use(express.static(path.resolve(__dirname, 'frontend')));
 
 async function getDataFromWeather(type, city) {
+    console.log(
+        'Fetching data from weather API',
+        process.env.API_KEY,
+        type,
+        city
+    );
     const response = await fetch(
         `https://api.openweathermap.org/data/2.5/${type}?q=${city}&appid=${process.env.API_KEY}&units=metric`
     );
 
     const data = await response.json();
+
+    console.log('Data from weather API: ', data);
 
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
