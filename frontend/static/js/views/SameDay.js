@@ -55,21 +55,39 @@ export default class extends AbstractView {
             <h2>Current weather</h2>
             <div class="card-current-weather fade-in">
                 <div class="location-container">
-                  <span class="location">${data.currentDayData.name}, ${data.currentDayData.sys.country}</span>
-                  <img class="weather-icon" src="http://openweathermap.org/img/wn/${data.currentDayData.weather[0].icon}.png">
+                  <span class="location">${data.currentDayData.name}, ${
+                data.currentDayData.sys.country
+            }</span>
+                  <img class="weather-icon" src="http://openweathermap.org/img/wn/${
+                      data.currentDayData.weather[0].icon
+                  }.png">
                 </div>
                 <div class="details">
-                    <span class="temperature">${data.currentDayData.main.temp}°C</span>
-                    <span class="description">${data.currentDayData.weather[0].description}</span>
-                    <span class="feels-like">Feels like: ${data.currentDayData.main.feels_like}°C</span>
+                    <span class="temperature">${Math.round(
+                        data.currentDayData.main.temp
+                    )}°C</span>
+                    <span class="description">${
+                        data.currentDayData.weather[0].description
+                    }</span>
+                    <span class="feels-like">Feels like: ${
+                        data.currentDayData.main.feels_like
+                    }°C</span>
                     <div class="weather-details">
                         <div class="details-left">
-                            <span>Min:<br>${data.currentDayData.main.temp_min}°C</span>
-                            <span class="humidity">Humidity:<br>${data.currentDayData.main.humidity}%</span>
+                            <span>Min:<br>${
+                                data.currentDayData.main.temp_min
+                            }°C</span>
+                            <span class="humidity">Humidity:<br>${
+                                data.currentDayData.main.humidity
+                            }%</span>
                         </div>
                         <div class="details-right">
-                            <span>Max:<br>${data.currentDayData.main.temp_max}°C</span>
-                            <span class="wind">Wind:<br>${data.currentDayData.wind.speed}km/h</span>
+                            <span>Max:<br>${
+                                data.currentDayData.main.temp_max
+                            }°C</span>
+                            <span class="wind">Wind:<br>${
+                                data.currentDayData.wind.speed
+                            }km/h</span>
                             <span
                         </div>
                     </div>
@@ -81,33 +99,49 @@ export default class extends AbstractView {
             htmlString += `<h2>Forecast over the next 5 days</h2>
             <div class="forecast-container">`;
 
-            for (let i in data.forecastData['list']) {
-                let day = data.forecastData['list'][i];
+            for (let i in data.forecastData.list) {
+                let day = data.forecastData.list[i];
                 delay += 100;
 
-                day['weather'][0]['description'] =
-                    day['weather'][0]['description'][0].toUpperCase() +
-                    day['weather'][0]['description'].slice(1);
+                day.weather[0].description =
+                    day.weather[0].description[0].toUpperCase() +
+                    day.weather[0].description.slice(1);
 
                 htmlString += `
                                 <div class="card fade-in" style="animation-delay: ${delay}ms">
                                     <div class="details">
-                                        <span class="temperature">${day['main']['temp']}°C <img class="weather-icon" src="http://openweathermap.org/img/wn/${day['weather'][0]['icon']}.png"></span>
-                                        <span class="description">${day['weather'][0]['description']}</span>
-                                        <span class="feels-like">Feels like: ${day['main']['feels_like']}°C</span>
+                                        <span class="temperature">${Math.round(
+                                            day.main.temp
+                                        )}°C <img class="weather-icon" src="http://openweathermap.org/img/wn/${
+                    day.weather[0].icon
+                }.png"></span>
+                                        <span class="description">${
+                                            day.weather[0].description
+                                        }</span>
+                                        <span class="feels-like">Feels like: ${
+                                            day.main.feels_like
+                                        }°C</span>
                                         <div class="weather-details">
                                             <div class="details-left">
-                                                <span>Min:<br>${day['main']['temp_min']}°C</span>
-                                                <span class="humidity">Humidity:<br>${day['main']['humidity']}%</span>
+                                                <span>Min:<br>${
+                                                    day.main.temp_min
+                                                }°C</span>
+                                                <span class="humidity">Humidity:<br>${
+                                                    day.main.humidity
+                                                }%</span>
                                             </div>
                                             <div class="details-right">
-                                                <span>Max:<br>${day['main']['temp_max']}°C</span>
-                                                <span class="wind">Wind:<br>${day['wind']['speed']}km/h</span>
+                                                <span>Max:<br>${
+                                                    day.main.temp_max
+                                                }°C</span>
+                                                <span class="wind">Wind:<br>${
+                                                    day.wind.speed
+                                                }km/h</span>
                                                 <span
                                             </div>
                                         </div>
                                         </div>
-                                        <span class="date">${day['dt_txt']}</span>
+                                        <span class="date">${day.dt_txt}</span>
                                     </div>
                                 </div>
                               `;
